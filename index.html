@@ -523,6 +523,27 @@
             box-shadow: 0 6px 12px -2px rgba(59, 91, 219, 0.3);
         }
 
+        .btn-reset {
+            background: white;
+            border: 1px solid var(--border-light);
+            color: var(--text-secondary);
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 35px;
+        }
+
+        .btn-reset:hover {
+            background: #f8f9fa;
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
         .btn-apply:active {
             transform: translateY(0);
         }
@@ -707,6 +728,53 @@
                 transform: translateY(0);
                 opacity: 1;
             }
+        }
+
+        /* Minimized State */
+        .modal-overlay.minimized {
+            background: transparent;
+            backdrop-filter: none;
+            pointer-events: none;
+        }
+
+        .modal-content.minimized,
+        .log-modal-content.minimized {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 300px;
+            max-width: 300px;
+            height: auto;
+            transform: none !important;
+            animation: slideToCorner 0.3s ease-out;
+            pointer-events: auto;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--primary);
+            z-index: 1001;
+        }
+
+        @keyframes slideToCorner {
+            from {
+                transform: scale(0.9) translate(-50%, -50%);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1) translate(0, 0);
+                opacity: 1;
+            }
+        }
+
+        .modal-content.minimized .modal-body,
+        .modal-content.minimized .modal-footer,
+        .log-modal-content.minimized .log-modal-body,
+        .log-modal-content.minimized .log-modal-footer {
+            display: none;
+        }
+
+        .modal-content.minimized .modal-header,
+        .log-modal-content.minimized .log-modal-header {
+            border-radius: 8px;
         }
 
         .modal-header {
@@ -925,6 +993,136 @@
                 display: none;
             }
         }
+
+        /* Log Detail Modal Styles - Matching 'second format' */
+        .log-modal-content {
+            background: white;
+            width: 100%;
+            max-width: 500px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-modal);
+            overflow: hidden;
+            animation: slideUp 0.3s ease-out;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .log-modal-header {
+            background-color: var(--primary);
+            padding: 10px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        .log-modal-title {
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+        }
+
+        .modal-controls {
+            display: flex;
+            gap: 4px;
+        }
+
+        .modal-control-btn {
+            background: transparent;
+            border: none;
+            color: white;
+            padding: 4px 8px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .modal-control-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .modal-control-btn.close-btn:hover {
+            background: #e81123;
+        }
+
+        .log-modal-body {
+            padding: 24px;
+        }
+
+        .log-section-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .log-status-icon {
+            font-size: 18px;
+        }
+
+        .log-modal-footer {
+            padding: 16px 24px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            border-top: none;
+            background: transparent;
+        }
+
+        .btn-cancel {
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            border: 1px solid #ced4da;
+            background: white;
+            color: #495057;
+            transition: all 0.2s;
+        }
+
+        .btn-cancel:hover {
+            background: #f8f9fa;
+            border-color: #adb5bd;
+        }
+
+        .log-code-container {
+            background: #f8f9fa;
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 16px;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 13px;
+            color: #333;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            word-break: break-all;
+            margin-top: 16px;
+            position: relative;
+        }
+
+        .log-code-container::before {
+            content: "LOG DATA";
+            position: absolute;
+            top: -10px;
+            left: 12px;
+            background: white;
+            padding: 0 8px;
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+        }
     </style>
 </head>
 
@@ -946,7 +1144,7 @@
 
         <div class="header">
             <div class="header-title">
-                <h2>Resume Analyzed Details</h2>
+                <h2 id="pageMainHeading">Resume Analyzed Details</h2>
                 <span>AI Processing & Queue Management</span>
             </div>
             <div class="user-profile">
@@ -956,7 +1154,7 @@
         </div>
 
         <div class="dashboard">
-            <div style="display: flex; justify-content: flex-end; align-items: center; gap: 12px; margin-bottom: 20px;">
+            <div style="display: flex; justify-content: center; align-items: center; gap: 12px; margin-bottom: 20px;">
                 <span style="font-size: 13px; font-weight: 500; color: var(--text-secondary);">Date Range:</span>
                 <input type="date" value="2026-02-21" id="fromDate"
                     style="padding: 6px 10px; border: 1px solid var(--border-light); border-radius: 4px; font-size: 13px; color: var(--text-primary); outline: none;">
@@ -965,6 +1163,9 @@
                     style="padding: 6px 10px; border: 1px solid var(--border-light); border-radius: 4px; font-size: 13px; color: var(--text-primary); outline: none;">
                 <button class="btn-apply" onclick="applyDateFilters()">
                     <i class="fa-solid fa-filter"></i> Apply
+                </button>
+                <button class="btn-reset" onclick="resetDateFilters()" title="Reset Filters">
+                    <i class="fa-solid fa-rotate-right"></i>
                 </button>
             </div>
 
@@ -1027,8 +1228,12 @@
                                 <td><span class="badge badge-success">Pass</span></td>
                                 <td style="font-family: monospace;">84,203</td>
                                 <td style="font-family: monospace;">3,105</td>
-                                <td style="color: var(--text-secondary); font-size: 11px;">Scoring completed
-                                    successfully across 7 metrics.</td>
+                                <td style="color: var(--text-secondary); font-size: 11px;">
+                                    <a href="#"
+                                        onclick="openLogDetail('Scoring completed successfully across 7 metrics.', 'Pass')"
+                                        style="color: inherit; text-decoration: none; border-bottom: 1px dashed #ccc;">Scoring
+                                        completed successfully across 7 metrics.</a>
+                                </td>
                             </tr>
                             <tr>
                                 <td style="text-align: center; color: var(--text-muted);">2</td>
@@ -1040,7 +1245,11 @@
                                 <td style="font-family: monospace;">145,800</td>
                                 <td style="font-family: monospace;">---</td>
                                 <td style="color: var(--status-error); font-size: 11px; font-family: monospace;">
-                                    TimeoutException: Target model failed to respond.</td>
+                                    <a href="#"
+                                        onclick="openLogDetail('TimeoutException: Target model failed to respond.', 'Fail')"
+                                        style="color: inherit; text-decoration: none; border-bottom: 1px dashed #ff8787;">TimeoutException:
+                                        Target model failed to respond.</a>
+                                </td>
                             </tr>
                             <tr>
                                 <td style="text-align: center; color: var(--text-muted);">3</td>
@@ -1051,8 +1260,13 @@
                                 <td><span class="badge badge-success">Pass</span></td>
                                 <td style="font-family: monospace;">71,920</td>
                                 <td style="font-family: monospace;">2,840</td>
-                                <td style="color: var(--text-secondary); font-size: 11px;">Scoring completed
-                                    successfully across 7 metrics.</td>
+                                <td style="color: var(--text-secondary); font-size: 11px;">
+                                    <a href="#"
+                                        onclick="openLogDetail('Scoring completed successfully across 7 metrics.', 'Pass')"
+                                        style="color: inherit; text-decoration: none; border-bottom: 1px dashed #ccc;">Scoring
+                                        completed
+                                        successfully across 7 metrics.</a>
+                                </td>
                             </tr>
                             <tr>
                                 <td style="text-align: center; color: var(--text-muted);">4</td>
@@ -1063,44 +1277,67 @@
                                 <td><span class="badge badge-success">Pass</span></td>
                                 <td style="font-family: monospace;">93,450</td>
                                 <td style="font-family: monospace;">2,900</td>
-                                <td style="color: var(--text-secondary); font-size: 11px;">Scoring completed
-                                    successfully across 7 metrics.</td>
+                                <td style="color: var(--text-secondary); font-size: 11px;">
+                                    <a href="#" onclick="openLogDetail('Matched 85% with Job Description.', 'Pass')"
+                                        style="color: inherit; text-decoration: none; border-bottom: 1px dashed #ccc;">Matched
+                                        85% with Job Description.</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center; color: var(--text-muted);">4</td>
+                                <td>Sneha_Reddy_Backend.pdf</td>
+                                <td>3.2s</td>
+                                <td><span class="badge badge-success">Pass</span></td>
+                                <td style="font-family: monospace;">45,120</td>
+                                <td style="font-family: monospace;">1,240</td>
+                                <td style="color: var(--text-secondary); font-size: 11px;">
+                                    <a href="#"
+                                        onclick="openLogDetail('Extraction complete. Skills: Java, Spring, AWS.', 'Pass')"
+                                        style="color: inherit; text-decoration: none; border-bottom: 1px dashed #ccc;">Extraction
+                                        complete. Skills: Java, Spring, AWS.</a>
+                                </td>
                             </tr>
                             <tr>
                                 <td style="text-align: center; color: var(--text-muted);">5</td>
-                                <td><a href="#" onclick="openResumePreview('Karan_Singh_Designer_Portfolio.pdf')"
-                                        style="color: var(--primary); text-decoration: none; font-weight: 500;">Karan_Singh_Designer_Portfolio.pdf</a>
-                                </td>
-                                <td>2.1s</td>
+                                <td>Karthik_N_UIUX.pdf</td>
+                                <td>---</td>
                                 <td><span class="badge badge-failed">Fail</span></td>
-                                <td style="font-family: monospace;">---</td>
+                                <td style="font-family: monospace;">0</td>
                                 <td style="font-family: monospace;">---</td>
                                 <td style="color: var(--status-error); font-size: 11px; font-family: monospace;">
-                                    FormatError: Unable to extract text corpus. Valid PDF required.</td>
+                                    <a href="#"
+                                        onclick="openLogDetail('PDFParseException: Header corrupted, cannot process.', 'Fail')"
+                                        style="color: inherit; text-decoration: none; border-bottom: 1px dashed #ff8787;">PDFParseException:
+                                        Header corrupted, cannot process.</a>
+                                </td>
                             </tr>
                             <tr>
                                 <td style="text-align: center; color: var(--text-muted);">6</td>
-                                <td><a href="#" onclick="openResumePreview('Neha_Gupta_Manager.pdf')"
-                                        style="color: var(--primary); text-decoration: none; font-weight: 500;">Neha_Gupta_Manager.pdf</a>
-                                </td>
-                                <td>5.1s</td>
+                                <td>Neha_Gupta_Marketing.pdf</td>
+                                <td>4.5s</td>
                                 <td><span class="badge badge-success">Pass</span></td>
-                                <td style="font-family: monospace;">102,500</td>
-                                <td style="font-family: monospace;">3,400</td>
-                                <td style="color: var(--text-secondary); font-size: 11px;">Scoring completed
-                                    successfully across 7 metrics.</td>
+                                <td style="font-family: monospace;">78,400</td>
+                                <td style="font-family: monospace;">2,150</td>
+                                <td style="color: var(--text-secondary); font-size: 11px;">
+                                    <a href="#"
+                                        onclick="openLogDetail('Parsed successfully. Found 5 years experience.', 'Pass')"
+                                        style="color: inherit; text-decoration: none; border-bottom: 1px dashed #ccc;">Parsed
+                                        successfully. Found 5 years experience.</a>
+                                </td>
                             </tr>
                             <tr>
                                 <td style="text-align: center; color: var(--text-muted);">7</td>
-                                <td><a href="#" onclick="openResumePreview('Arjun_Dev_Backend.pdf')"
-                                        style="color: var(--primary); text-decoration: none; font-weight: 500;">Arjun_Dev_Backend.pdf</a>
-                                </td>
-                                <td>4.3s</td>
+                                <td>Arjun_Mehta_Product.pdf</td>
+                                <td>5.1s</td>
                                 <td><span class="badge badge-success">Pass</span></td>
                                 <td style="font-family: monospace;">88,210</td>
                                 <td style="font-family: monospace;">3,050</td>
-                                <td style="color: var(--text-secondary); font-size: 11px;">Scoring completed
-                                    successfully across 7 metrics.</td>
+                                <td style="color: var(--text-secondary); font-size: 11px;">
+                                    <a href="#"
+                                        onclick="openLogDetail('Scoring completed successfully across 7 metrics.', 'Pass')"
+                                        style="color: inherit; text-decoration: none; border-bottom: 1px dashed #ccc;">Scoring
+                                        completed successfully across 7 metrics.</a>
+                                </td>
                             </tr>
                             <tr>
                                 <td style="text-align: center; color: var(--text-muted);">8</td>
@@ -1112,7 +1349,10 @@
                                 <td style="font-family: monospace;">1,540,200</td>
                                 <td style="font-family: monospace;">---</td>
                                 <td style="color: var(--status-error); font-size: 11px; font-family: monospace;">
-                                    TokenLimitError: Max tokens exceeded.</td>
+                                    <a href="#" onclick="openLogDetail('TokenLimitError: Max tokens exceeded.', 'Fail')"
+                                        style="color: inherit; text-decoration: none; border-bottom: 1px dashed #ff8787;">TokenLimitError:
+                                        Max tokens exceeded.</a>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -1198,6 +1438,35 @@
         </div>
     </div>
 
+    <!-- Log Detail Modal -->
+    <div class="modal-overlay" id="logDetailModal" onclick="closeLogModalOnOutsideClick(event)">
+        <div class="log-modal-content">
+            <div class="log-modal-header">
+                <div class="log-modal-title">
+                    <i class="fa-solid fa-history"></i> Detailed Activity Log
+                </div>
+                <div class="modal-controls">
+                    <button class="modal-control-btn" onclick="toggleMinimize(this)" title="Minimize/Restore">
+                        <i class="fa-solid fa-minus"></i>
+                    </button>
+                    <button class="modal-control-btn close-btn" onclick="closeLogDetail()">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="log-modal-body">
+                <div class="log-section-title">
+                    <span id="logStatusIcon" class="log-status-icon"></span>
+                    Detailed Activity Information
+                </div>
+                <div id="logDetailContent" class="log-code-container"></div>
+            </div>
+            <div class="log-modal-footer">
+                <button class="btn-cancel" onclick="closeLogDetail()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Modal logic
         function openResumePreview(fileName) {
@@ -1227,39 +1496,157 @@
             }
         }
 
+        function openLogDetail(logText, status) {
+            const modal = document.getElementById('logDetailModal');
+            const content = document.getElementById('logDetailContent');
+            const icon = document.getElementById('logStatusIcon');
+
+            // Construct technical-looking log object
+            const timestamp = new Date().toISOString().replace('T', ' ').substring(0, 19);
+            const level = status === 'Pass' ? 'INFO' : 'ERROR';
+            const logId = 'log_' + Math.floor(Math.random() * 1000000).toString(16);
+
+            const structuredLog = {
+                timestamp: timestamp,
+                log_id: logId,
+                level: level,
+                source: "AI_RESUME_ANALYZER_V2",
+                message: logText,
+                details: {
+                    processing_step: level === 'ERROR' ? "EXCEPTION_HANDLED" : "COMPLETED",
+                    environment: "production",
+                    model: "gpt-4o-mini-latest"
+                }
+            };
+
+            content.innerHTML = `<span style="color: #0066cc;">{</span>
+  <span style="color: #660e7a;">"timestamp"</span>: <span style="color: #008000;">"${structuredLog.timestamp}"</span>,
+  <span style="color: #660e7a;">"log_id"</span>: <span style="color: #008000;">"${structuredLog.log_id}"</span>,
+  <span style="color: #660e7a;">"level"</span>: <span style="color: ${status === 'Pass' ? '#008000' : '#d91e18'}; font-weight: bold;">"${structuredLog.level}"</span>,
+  <span style="color: #660e7a;">"source"</span>: <span style="color: #008000;">"${structuredLog.source}"</span>,
+  <span style="color: #660e7a;">"message"</span>: <span style="color: #008000;">"${structuredLog.message}"</span>,
+  <span style="color: #660e7a;">"details"</span>: <span style="color: #0066cc;">{</span>
+    <span style="color: #660e7a;">"processing_step"</span>: <span style="color: #008000;">"${structuredLog.details.processing_step}"</span>,
+    <span style="color: #660e7a;">"environment"</span>: <span style="color: #008000;">"production"</span>,
+    <span style="color: #660e7a;">"model"</span>: <span style="color: #008000;">"gpt-4o-mini-latest"</span>
+  <span style="color: #0066cc;">}</span>
+<span style="color: #0066cc;">}</span>`;
+
+            if (status === 'Pass') {
+                icon.innerHTML = '<i class="fa-solid fa-circle-check" style="color: var(--status-success);"></i>';
+            } else {
+                icon.innerHTML = '<i class="fa-solid fa-circle-xmark" style="color: var(--status-error);"></i>';
+            }
+
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLogDetail() {
+            const modal = document.getElementById('logDetailModal');
+            modal.classList.remove('show');
+            modal.classList.remove('minimized');
+            modal.querySelector('.log-modal-content').classList.remove('minimized');
+            document.body.style.overflow = '';
+
+            // Reset minimize icon if needed
+            const minBtn = modal.querySelector('.modal-control-btn i.fa-up-right-from-square');
+            if (minBtn) {
+                minBtn.classList.replace('fa-up-right-from-square', 'fa-minus');
+            }
+        }
+
+        function toggleMinimize(btn) {
+            const modal = btn.closest('.modal-overlay');
+            const content = modal.querySelector('.log-modal-content') || modal.querySelector('.modal-content');
+            const isMinimized = content.classList.toggle('minimized');
+            modal.classList.toggle('minimized', isMinimized);
+
+            // Update icon
+            const icon = btn.querySelector('i');
+            if (isMinimized) {
+                icon.classList.replace('fa-minus', 'fa-up-right-from-square');
+            } else {
+                icon.classList.replace('fa-up-right-from-square', 'fa-minus');
+            }
+        }
+
+        function closeLogModalOnOutsideClick(event) {
+            if (event.target === document.getElementById('logDetailModal')) {
+                closeLogDetail();
+            }
+        }
+
+        function resetDateFilters() {
+            document.getElementById('fromDate').value = '2026-02-21';
+            document.getElementById('toDate').value = '2026-02-27';
+            applyDateFilters(true);
+        }
+
         function togglePdfSidebar() {
             const sidebar = document.getElementById('pdfSidebar');
             sidebar.classList.toggle('collapsed');
         }
 
-        function applyDateFilters() {
-            const btn = event.currentTarget;
-            const originalContent = btn.innerHTML;
+        function formatDateToLocale(dateStr) {
+            if (!dateStr) return '';
+            const [year, month, day] = dateStr.split('-');
+            return `${day}/${month}/${year}`;
+        }
+
+        function applyDateFilters(arg) {
+            const isInitialLoad = (arg === true);
+            const btn = document.querySelector('.btn-apply');
             const fromDate = document.getElementById('fromDate').value;
             const toDate = document.getElementById('toDate').value;
 
-            // Show loading state
-            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Applying...';
-            btn.style.opacity = '0.8';
-            btn.style.pointerEvents = 'none';
+            if (!isInitialLoad && btn) {
+                const originalContent = btn.innerHTML;
+                // Show loading state
+                btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Applying...';
+                btn.style.opacity = '0.8';
+                btn.style.pointerEvents = 'none';
 
-            // Simulate API call and update data
-            setTimeout(() => {
-                btn.innerHTML = originalContent;
-                btn.style.opacity = '1';
-                btn.style.pointerEvents = 'auto';
+                setTimeout(() => {
+                    btn.innerHTML = originalContent;
+                    btn.style.opacity = '1';
+                    btn.style.pointerEvents = 'auto';
+                    updateHeaderAndData(fromDate, toDate);
+                }, 800);
+            } else {
+                updateHeaderAndData(fromDate, toDate);
+            }
+        }
 
-                // Mock Data Logic
-                const isFebruary = fromDate.includes('-02-') || toDate.includes('-02-');
+        function updateHeaderAndData(fromDate, toDate) {
+            const formattedFrom = formatDateToLocale(fromDate);
+            const formattedTo = formatDateToLocale(toDate);
 
-                if (isFebruary) {
-                    // Update KPIs
-                    document.getElementById('successCount').innerText = '98';
-                    document.getElementById('failCount').innerText = '7';
-                    document.getElementById('analysisLogsTitle').innerText = `Analysis Logs (Records for ${fromDate} to ${toDate})`;
+            // Update Page Headings with new format
+            const dateHeader = (formattedFrom === formattedTo) ? `(${formattedFrom})` : `(${formattedFrom} to ${formattedTo})`;
+            const pageHeading = document.getElementById('pageMainHeading');
+            if (pageHeading) {
+                pageHeading.innerHTML = `Resume Analyzed Details <span style="font-size: 16px; font-weight: 500; color: var(--text-secondary); margin-left: 8px;">${dateHeader}</span>`;
+            }
 
-                    // Update Table
-                    document.getElementById('analysisLogsBody').innerHTML = `
+            // Mock Data Logic
+            const isFebruary = fromDate.includes('-02-') || toDate.includes('-02-');
+            const logsTitle = document.getElementById('analysisLogsTitle');
+            if (logsTitle) {
+                logsTitle.innerText = `Analysis Logs (Records for ${formattedFrom} to ${formattedTo})`;
+            }
+
+            if (isFebruary) {
+                // Update KPIs
+                const successEl = document.getElementById('successCount');
+                const failEl = document.getElementById('failCount');
+                if (successEl) successEl.innerText = '98';
+                if (failEl) failEl.innerText = '7';
+
+                // Update Table
+                const logsBody = document.getElementById('analysisLogsBody');
+                if (logsBody) {
+                    logsBody.innerHTML = `
                         <tr>
                             <td style="text-align: center; color: var(--text-muted);">1</td>
                             <td><a href="#" onclick="openResumePreview('Amit_Sharma_Resume.pdf')"
@@ -1268,7 +1655,9 @@
                             <td><span class="badge badge-success">Pass</span></td>
                             <td style="font-family: monospace;">84,203</td>
                             <td style="font-family: monospace;">3,105</td>
-                            <td style="color: var(--text-secondary); font-size: 11px;">Scoring completed successfully across 7 metrics.</td>
+                            <td style="color: var(--text-secondary); font-size: 11px;">
+                                <a href="#" onclick="openLogDetail('Successfully extracted 12 skills and verified 5 years of Java experience.', 'Pass')" style="color: inherit; text-decoration: none; border-bottom: 1px dashed #ccc;">Successfully extracted 12 skills and verified 5 years of Java experience.</a>
+                            </td>
                         </tr>
                         <tr>
                             <td style="text-align: center; color: var(--text-muted);">2</td>
@@ -1278,7 +1667,9 @@
                             <td><span class="badge badge-failed">Fail</span></td>
                             <td style="font-family: monospace;">145,800</td>
                             <td style="font-family: monospace;">---</td>
-                            <td style="color: var(--status-error); font-size: 11px; font-family: monospace;">TimeoutException: Target model failed to respond.</td>
+                            <td style="color: var(--status-error); font-size: 11px; font-family: monospace;">
+                                <a href="#" onclick="openLogDetail('PDFParseError: Unable to extract text from encrypted document.', 'Fail')" style="color: inherit; text-decoration: none; border-bottom: 1px dashed #ff8787;">PDFParseError: Unable to extract text from encrypted document.</a>
+                            </td>
                         </tr>
                         <tr>
                             <td style="text-align: center; color: var(--text-muted);">3</td>
@@ -1288,40 +1679,97 @@
                             <td><span class="badge badge-success">Pass</span></td>
                             <td style="font-family: monospace;">92,400</td>
                             <td style="font-family: monospace;">4,210</td>
-                            <td style="color: var(--text-secondary); font-size: 11px;">Matched 85% with Job Description.</td>
-                        </tr>
-                    `;
-                } else {
-                    // Alternative Mock Data for other ranges
-                    document.getElementById('successCount').innerText = '45';
-                    document.getElementById('failCount').innerText = '3';
-                    document.getElementById('analysisLogsTitle').innerText = `Analysis Logs (Records for ${fromDate} to ${toDate})`;
-
-                    document.getElementById('analysisLogsBody').innerHTML = `
-                        <tr>
-                            <td style="text-align: center; color: var(--text-muted);">1</td>
-                            <td><a href="#" onclick="openResumePreview('John_Doe_Developer.pdf')"
-                                    style="color: var(--primary); text-decoration: none; font-weight: 500;">John_Doe_Developer.pdf</a></td>
-                            <td>3.1s</td>
+                             <td style="color: var(--text-secondary); font-size: 11px;">
+                                 <a href="#" onclick="openLogDetail('Completed scoring across 15 metrics with an overall match score of 88%.', 'Pass')" style="color: inherit; text-decoration: none; border-bottom: 1px dashed #ccc;">Completed scoring across 15 metrics with an overall match score of 88%.</a>
+                             </td>
+                          </tr>
+                          <tr>
+                            <td style="text-align: center; color: var(--text-muted);">4</td>
+                            <td><a href="#" onclick="openResumePreview('Sneha_Reddy_Backend.pdf')"
+                                    style="color: var(--primary); text-decoration: none; font-weight: 500;">Sneha_Reddy_Backend.pdf</a></td>
+                            <td>3.2s</td>
                             <td><span class="badge badge-success">Pass</span></td>
                             <td style="font-family: monospace;">45,120</td>
-                            <td style="font-family: monospace;">2,450</td>
-                            <td style="color: var(--text-secondary); font-size: 11px;">Excellent matching in backend skills.</td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center; color: var(--text-muted);">2</td>
-                            <td><a href="#" onclick="openResumePreview('Jane_Smith_HR.pdf')"
-                                    style="color: var(--primary); text-decoration: none; font-weight: 500;">Jane_Smith_HR.pdf</a></td>
-                            <td>5.5s</td>
+                            <td style="font-family: monospace;">1,240</td>
+                             <td style="color: var(--text-secondary); font-size: 11px;">
+                                 <a href="#" onclick="openLogDetail('Successfully identified AWS and Docker certifications from specialized section.', 'Pass')" style="color: inherit; text-decoration: none; border-bottom: 1px dashed #ccc;">Successfully identified AWS and Docker certifications from specialized section.</a>
+                             </td>
+                          </tr>
+                          <tr>
+                            <td style="text-align: center; color: var(--text-muted);">5</td>
+                            <td><a href="#" onclick="openResumePreview('Vikram_Singh_DataScience.pdf')"
+                                    style="color: var(--primary); text-decoration: none; font-weight: 500;">Vikram_Singh_DataScience.pdf</a></td>
+                            <td>12.5s</td>
                             <td><span class="badge badge-failed">Fail</span></td>
-                            <td style="font-family: monospace;">12,400</td>
+                            <td style="font-family: monospace;">1,240,200</td>
                             <td style="font-family: monospace;">---</td>
-                            <td style="color: var(--status-error); font-size: 11px; font-family: monospace;">Invalid File Format exception.</td>
-                        </tr>
-                    `;
+                             <td style="color: var(--status-error); font-size: 11px; font-family: monospace;">
+                                 <a href="#" onclick="openLogDetail('ValidationError: File size exceeds the maximum limit of 50MB.', 'Fail')" style="color: inherit; text-decoration: none; border-bottom: 1px dashed #ff8787;">ValidationError: File size exceeds the maximum limit of 50MB.</a>
+                             </td>
+                          </tr>
+                      `;
                 }
-            }, 800);
+            } else {
+                // Alternative Mock Data for other ranges
+                const successEl = document.getElementById('successCount');
+                const failEl = document.getElementById('failCount');
+                if (successEl) successEl.innerText = '45';
+                if (failEl) failEl.innerText = '3';
+
+                const logsBody = document.getElementById('analysisLogsBody');
+                if (logsBody) {
+                    logsBody.innerHTML = `
+                         <tr>
+                             <td style="text-align: center; color: var(--text-muted);">1</td>
+                             <td><a href="#" onclick="openResumePreview('John_Doe_Developer.pdf')"
+                                     style="color: var(--primary); text-decoration: none; font-weight: 500;">John_Doe_Developer.pdf</a></td>
+                             <td>3.1s</td>
+                             <td><span class="badge badge-success">Pass</span></td>
+                             <td style="font-family: monospace;">45,120</td>
+                             <td style="font-family: monospace;">2,450</td>
+                             <td style="color: var(--text-secondary); font-size: 11px;">
+                                 <a href="#" onclick="openLogDetail('Extracted 8 skills including React and Node.js.', 'Pass')" style="color: inherit; text-decoration: none; border-bottom: 1px dashed #ccc;">Extracted 8 skills including React and Node.js.</a>
+                             </td>
+                         </tr>
+                         <tr>
+                             <td style="text-align: center; color: var(--text-muted);">2</td>
+                             <td><a href="#" onclick="openResumePreview('Jane_Smith_HR.pdf')"
+                                     style="color: var(--primary); text-decoration: none; font-weight: 500;">Jane_Smith_HR.pdf</a></td>
+                             <td>5.5s</td>
+                             <td><span class="badge badge-failed">Fail</span></td>
+                             <td style="font-family: monospace;">12,400</td>
+                             <td style="font-family: monospace;">---</td>
+                             <td style="color: var(--status-error); font-size: 11px; font-family: monospace;">
+                                 <a href="#" onclick="openLogDetail('UnsupportedFormatError: Docx file corrupted or invalid.', 'Fail')" style="color: inherit; text-decoration: none; border-bottom: 1px dashed #ff8787;">UnsupportedFormatError: Docx file corrupted or invalid.</a>
+                             </td>
+                         </tr>
+                         <tr>
+                             <td style="text-align: center; color: var(--text-muted);">3</td>
+                             <td><a href="#" onclick="openResumePreview('Karthik_R_DevOps.pdf')"
+                                     style="color: var(--primary); text-decoration: none; font-weight: 500;">Karthik_R_DevOps.pdf</a></td>
+                             <td>4.2s</td>
+                             <td><span class="badge badge-success">Pass</span></td>
+                             <td style="font-family: monospace;">67,100</td>
+                             <td style="font-family: monospace;">3,120</td>
+                             <td style="color: var(--text-secondary); font-size: 11px;">
+                                 <a href="#" onclick="openLogDetail('Successfully identified Kubernetes and Terraform experience.', 'Pass')" style="color: inherit; text-decoration: none; border-bottom: 1px dashed #ccc;">Successfully identified Kubernetes and Terraform experience.</a>
+                             </td>
+                         </tr>
+                      `;
+                }
+            }
         }
+        window.onload = function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const targetDate = urlParams.get('date');
+
+            if (targetDate) {
+                document.getElementById('fromDate').value = targetDate;
+                document.getElementById('toDate').value = targetDate;
+            }
+            // Always call on load to set initial header/KPIs correctly
+            applyDateFilters(true);
+        };
     </script>
 </body>
 
