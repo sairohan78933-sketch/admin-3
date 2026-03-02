@@ -130,12 +130,12 @@
         }
 
         .header-title h2 {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 600;
         }
 
         .header-title span {
-            font-size: 13px;
+            font-size: 14px;
             color: var(--text-secondary);
         }
 
@@ -195,7 +195,7 @@
         .card-title {
             font-weight: 600;
             margin-bottom: 18px;
-            font-size: 14px;
+            font-size: 16px;
         }
 
         /* --- Enhanced KPI Cards --- */
@@ -233,7 +233,7 @@
         }
 
         .kpi-info p {
-            font-size: 12px;
+            font-size: 14px;
             color: var(--text-secondary);
             font-weight: 500;
         }
@@ -269,7 +269,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 11px;
+            font-size: 13px;
         }
 
         .detail-item.stacked {
@@ -316,7 +316,7 @@
             gap: 6px;
             padding: 4px 10px;
             border-radius: 20px;
-            font-size: 11px;
+            font-size: 13px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -370,7 +370,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 10px 0;
-            font-size: 13px;
+            font-size: 14px;
         }
 
         .metric-label {
@@ -425,7 +425,7 @@
         .dashboard-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 12px;
+            font-size: 14px;
             margin-top: 8px;
         }
 
@@ -438,7 +438,7 @@
             border-bottom: 1px solid var(--border-light);
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            font-size: 10px;
+            font-size: 11px;
         }
 
         .dashboard-table td {
@@ -567,7 +567,7 @@
             gap: 6px;
             padding: 4px 10px;
             border-radius: 20px;
-            font-size: 11px;
+            font-size: 13px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -1149,18 +1149,18 @@
             </div>
             <div class="user-profile">
                 <div class="avatar">AD</div>
-                <span style="font-size: 14px; font-weight: 500;">Admin User</span>
+                <span style="font-size: 15px; font-weight: 500;">Admin User</span>
             </div>
         </div>
 
         <div class="dashboard">
             <div style="display: flex; justify-content: center; align-items: center; gap: 12px; margin-bottom: 20px;">
-                <span style="font-size: 13px; font-weight: 500; color: var(--text-secondary);">Date Range:</span>
+                <span style="font-size: 14px; font-weight: 500; color: var(--text-secondary);">Date Range:</span>
                 <input type="date" value="2026-02-21" id="fromDate"
-                    style="padding: 6px 10px; border: 1px solid var(--border-light); border-radius: 4px; font-size: 13px; color: var(--text-primary); outline: none;">
-                <span style="color: var(--text-muted); font-size: 13px;">to</span>
+                    style="padding: 6px 10px; border: 1px solid var(--border-light); border-radius: 4px; font-size: 14px; color: var(--text-primary); outline: none;">
+                <span style="color: var(--text-muted); font-size: 14px;">to</span>
                 <input type="date" value="2026-02-27" id="toDate"
-                    style="padding: 6px 10px; border: 1px solid var(--border-light); border-radius: 4px; font-size: 13px; color: var(--text-primary); outline: none;">
+                    style="padding: 6px 10px; border: 1px solid var(--border-light); border-radius: 4px; font-size: 14px; color: var(--text-primary); outline: none;">
                 <button class="btn-apply" onclick="applyDateFilters()">
                     <i class="fa-solid fa-filter"></i> Apply
                 </button>
@@ -1173,13 +1173,13 @@
                 <!-- KPI 1: Successful -->
                 <div class="card" style="margin-bottom: 0;">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <span style="font-size: 14px; font-weight: 600; color: var(--text-secondary);">Total
+                        <span style="font-size: 16px; font-weight: 600; color: var(--text-secondary);">Total
                             Successfully Analyzed Resumes</span>
                         <div class="icon-container icon-green">
                             <i class="fa-solid fa-check-double"></i>
                         </div>
                     </div>
-                    <div style="font-size: 28px; font-weight: 700; margin-top: 10px;" id="successCount">
+                    <div style="font-size: 32px; font-weight: 700; margin-top: 10px;" id="successCount">
                         98
                     </div>
                 </div>
@@ -1187,13 +1187,13 @@
                 <!-- KPI 2: Failed -->
                 <div class="card" style="margin-bottom: 0;">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <span style="font-size: 14px; font-weight: 600; color: var(--text-secondary);">Total Failed
+                        <span style="font-size: 16px; font-weight: 600; color: var(--text-secondary);">Total Failed
                             Analyzed Resumes</span>
                         <div class="icon-container icon-amber">
                             <i class="fa-solid fa-circle-exclamation"></i>
                         </div>
                     </div>
-                    <div style="font-size: 28px; font-weight: 700; color: var(--status-error); margin-top: 10px;"
+                    <div style="font-size: 32px; font-weight: 700; color: var(--status-error); margin-top: 10px;"
                         id="failCount">
                         7
                     </div>
@@ -1228,7 +1228,7 @@
                                 <td><span class="badge badge-success">Pass</span></td>
                                 <td style="font-family: monospace;">84,203</td>
                                 <td style="font-family: monospace;">3,105</td>
-                                <td style="color: var(--text-secondary); font-size: 11px;">
+                                <td style="color: var(--text-secondary); font-size: 13px;">
                                     <a href="#"
                                         onclick="openLogDetail('Scoring completed successfully across 7 metrics.', 'Pass')"
                                         style="color: inherit; text-decoration: none; border-bottom: 1px dashed #ccc;">Scoring
@@ -1244,7 +1244,7 @@
                                 <td><span class="badge badge-failed">Fail</span></td>
                                 <td style="font-family: monospace;">145,800</td>
                                 <td style="font-family: monospace;">---</td>
-                                <td style="color: var(--status-error); font-size: 11px; font-family: monospace;">
+                                <td style="color: var(--status-error); font-size: 13px; font-family: monospace;">
                                     <a href="#"
                                         onclick="openLogDetail('TimeoutException: Target model failed to respond.', 'Fail')"
                                         style="color: inherit; text-decoration: none; border-bottom: 1px dashed #ff8787;">TimeoutException:
@@ -1260,7 +1260,7 @@
                                 <td><span class="badge badge-success">Pass</span></td>
                                 <td style="font-family: monospace;">71,920</td>
                                 <td style="font-family: monospace;">2,840</td>
-                                <td style="color: var(--text-secondary); font-size: 11px;">
+                                <td style="color: var(--text-secondary); font-size: 13px;">
                                     <a href="#"
                                         onclick="openLogDetail('Scoring completed successfully across 7 metrics.', 'Pass')"
                                         style="color: inherit; text-decoration: none; border-bottom: 1px dashed #ccc;">Scoring
@@ -1277,7 +1277,7 @@
                                 <td><span class="badge badge-success">Pass</span></td>
                                 <td style="font-family: monospace;">93,450</td>
                                 <td style="font-family: monospace;">2,900</td>
-                                <td style="color: var(--text-secondary); font-size: 11px;">
+                                <td style="color: var(--text-secondary); font-size: 13px;">
                                     <a href="#" onclick="openLogDetail('Matched 85% with Job Description.', 'Pass')"
                                         style="color: inherit; text-decoration: none; border-bottom: 1px dashed #ccc;">Matched
                                         85% with Job Description.</a>
@@ -1290,7 +1290,7 @@
                                 <td><span class="badge badge-success">Pass</span></td>
                                 <td style="font-family: monospace;">45,120</td>
                                 <td style="font-family: monospace;">1,240</td>
-                                <td style="color: var(--text-secondary); font-size: 11px;">
+                                <td style="color: var(--text-secondary); font-size: 13px;">
                                     <a href="#"
                                         onclick="openLogDetail('Extraction complete. Skills: Java, Spring, AWS.', 'Pass')"
                                         style="color: inherit; text-decoration: none; border-bottom: 1px dashed #ccc;">Extraction
@@ -1304,7 +1304,7 @@
                                 <td><span class="badge badge-failed">Fail</span></td>
                                 <td style="font-family: monospace;">0</td>
                                 <td style="font-family: monospace;">---</td>
-                                <td style="color: var(--status-error); font-size: 11px; font-family: monospace;">
+                                <td style="color: var(--status-error); font-size: 13px; font-family: monospace;">
                                     <a href="#"
                                         onclick="openLogDetail('PDFParseException: Header corrupted, cannot process.', 'Fail')"
                                         style="color: inherit; text-decoration: none; border-bottom: 1px dashed #ff8787;">PDFParseException:
@@ -1318,7 +1318,7 @@
                                 <td><span class="badge badge-success">Pass</span></td>
                                 <td style="font-family: monospace;">78,400</td>
                                 <td style="font-family: monospace;">2,150</td>
-                                <td style="color: var(--text-secondary); font-size: 11px;">
+                                <td style="color: var(--text-secondary); font-size: 13px;">
                                     <a href="#"
                                         onclick="openLogDetail('Parsed successfully. Found 5 years experience.', 'Pass')"
                                         style="color: inherit; text-decoration: none; border-bottom: 1px dashed #ccc;">Parsed
@@ -1332,7 +1332,7 @@
                                 <td><span class="badge badge-success">Pass</span></td>
                                 <td style="font-family: monospace;">88,210</td>
                                 <td style="font-family: monospace;">3,050</td>
-                                <td style="color: var(--text-secondary); font-size: 11px;">
+                                <td style="color: var(--text-secondary); font-size: 13px;">
                                     <a href="#"
                                         onclick="openLogDetail('Scoring completed successfully across 7 metrics.', 'Pass')"
                                         style="color: inherit; text-decoration: none; border-bottom: 1px dashed #ccc;">Scoring
@@ -1348,7 +1348,7 @@
                                 <td><span class="badge badge-failed">Fail</span></td>
                                 <td style="font-family: monospace;">1,540,200</td>
                                 <td style="font-family: monospace;">---</td>
-                                <td style="color: var(--status-error); font-size: 11px; font-family: monospace;">
+                                <td style="color: var(--status-error); font-size: 13px; font-family: monospace;">
                                     <a href="#" onclick="openLogDetail('TokenLimitError: Max tokens exceeded.', 'Fail')"
                                         style="color: inherit; text-decoration: none; border-bottom: 1px dashed #ff8787;">TokenLimitError:
                                         Max tokens exceeded.</a>
@@ -1655,7 +1655,7 @@
                             <td><span class="badge badge-success">Pass</span></td>
                             <td style="font-family: monospace;">84,203</td>
                             <td style="font-family: monospace;">3,105</td>
-                            <td style="color: var(--text-secondary); font-size: 11px;">
+                            <td style="color: var(--text-secondary); font-size: 13px;">
                                 <a href="#" onclick="openLogDetail('Successfully extracted 12 skills and verified 5 years of Java experience.', 'Pass')" style="color: inherit; text-decoration: none; border-bottom: 1px dashed #ccc;">Successfully extracted 12 skills and verified 5 years of Java experience.</a>
                             </td>
                         </tr>
@@ -1667,7 +1667,7 @@
                             <td><span class="badge badge-failed">Fail</span></td>
                             <td style="font-family: monospace;">145,800</td>
                             <td style="font-family: monospace;">---</td>
-                            <td style="color: var(--status-error); font-size: 11px; font-family: monospace;">
+                            <td style="color: var(--status-error); font-size: 13px; font-family: monospace;">
                                 <a href="#" onclick="openLogDetail('PDFParseError: Unable to extract text from encrypted document.', 'Fail')" style="color: inherit; text-decoration: none; border-bottom: 1px dashed #ff8787;">PDFParseError: Unable to extract text from encrypted document.</a>
                             </td>
                         </tr>
@@ -1679,7 +1679,7 @@
                             <td><span class="badge badge-success">Pass</span></td>
                             <td style="font-family: monospace;">92,400</td>
                             <td style="font-family: monospace;">4,210</td>
-                             <td style="color: var(--text-secondary); font-size: 11px;">
+                             <td style="color: var(--text-secondary); font-size: 13px;">
                                  <a href="#" onclick="openLogDetail('Completed scoring across 15 metrics with an overall match score of 88%.', 'Pass')" style="color: inherit; text-decoration: none; border-bottom: 1px dashed #ccc;">Completed scoring across 15 metrics with an overall match score of 88%.</a>
                              </td>
                           </tr>
@@ -1691,7 +1691,7 @@
                             <td><span class="badge badge-success">Pass</span></td>
                             <td style="font-family: monospace;">45,120</td>
                             <td style="font-family: monospace;">1,240</td>
-                             <td style="color: var(--text-secondary); font-size: 11px;">
+                             <td style="color: var(--text-secondary); font-size: 13px;">
                                  <a href="#" onclick="openLogDetail('Successfully identified AWS and Docker certifications from specialized section.', 'Pass')" style="color: inherit; text-decoration: none; border-bottom: 1px dashed #ccc;">Successfully identified AWS and Docker certifications from specialized section.</a>
                              </td>
                           </tr>
@@ -1703,7 +1703,7 @@
                             <td><span class="badge badge-failed">Fail</span></td>
                             <td style="font-family: monospace;">1,240,200</td>
                             <td style="font-family: monospace;">---</td>
-                             <td style="color: var(--status-error); font-size: 11px; font-family: monospace;">
+                             <td style="color: var(--status-error); font-size: 13px; font-family: monospace;">
                                  <a href="#" onclick="openLogDetail('ValidationError: File size exceeds the maximum limit of 50MB.', 'Fail')" style="color: inherit; text-decoration: none; border-bottom: 1px dashed #ff8787;">ValidationError: File size exceeds the maximum limit of 50MB.</a>
                              </td>
                           </tr>
@@ -1727,7 +1727,7 @@
                              <td><span class="badge badge-success">Pass</span></td>
                              <td style="font-family: monospace;">45,120</td>
                              <td style="font-family: monospace;">2,450</td>
-                             <td style="color: var(--text-secondary); font-size: 11px;">
+                             <td style="color: var(--text-secondary); font-size: 13px;">
                                  <a href="#" onclick="openLogDetail('Extracted 8 skills including React and Node.js.', 'Pass')" style="color: inherit; text-decoration: none; border-bottom: 1px dashed #ccc;">Extracted 8 skills including React and Node.js.</a>
                              </td>
                          </tr>
@@ -1739,7 +1739,7 @@
                              <td><span class="badge badge-failed">Fail</span></td>
                              <td style="font-family: monospace;">12,400</td>
                              <td style="font-family: monospace;">---</td>
-                             <td style="color: var(--status-error); font-size: 11px; font-family: monospace;">
+                             <td style="color: var(--status-error); font-size: 13px; font-family: monospace;">
                                  <a href="#" onclick="openLogDetail('UnsupportedFormatError: Docx file corrupted or invalid.', 'Fail')" style="color: inherit; text-decoration: none; border-bottom: 1px dashed #ff8787;">UnsupportedFormatError: Docx file corrupted or invalid.</a>
                              </td>
                          </tr>
@@ -1751,7 +1751,7 @@
                              <td><span class="badge badge-success">Pass</span></td>
                              <td style="font-family: monospace;">67,100</td>
                              <td style="font-family: monospace;">3,120</td>
-                             <td style="color: var(--text-secondary); font-size: 11px;">
+                             <td style="color: var(--text-secondary); font-size: 13px;">
                                  <a href="#" onclick="openLogDetail('Successfully identified Kubernetes and Terraform experience.', 'Pass')" style="color: inherit; text-decoration: none; border-bottom: 1px dashed #ccc;">Successfully identified Kubernetes and Terraform experience.</a>
                              </td>
                          </tr>
